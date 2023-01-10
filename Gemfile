@@ -49,8 +49,8 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "dotenv-rails", "~> 2.8"
 end
 
 group :development do
@@ -71,4 +71,5 @@ group :test do
   gem "webdrivers"
 end
 
-gem "dotenv-rails", "~> 2.8"
+# Bundle and transpile JavaScript in Rails with esbuild, rollup.js, or Webpack.
+gem "jsbundling-rails", "~> 1.1"
