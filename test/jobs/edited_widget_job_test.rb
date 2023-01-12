@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class InventoryReportTest < ActiveSupport::TestCase
+class EditedWidgetJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

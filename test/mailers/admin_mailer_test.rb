@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class InventoryReportTest < ActiveSupport::TestCase
+class AdminMailerTest < ActionMailer::TestCase
   # test "the truth" do
   #   assert true
   # end

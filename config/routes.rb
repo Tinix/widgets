@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :widgets, only: [:show , :index]
+  resources :widget_ratings, only: [ :create ]
+
+  get 'manufacturer/:id', to: 'manufacturers#show'
+  get "/amazing", to: "widgets#index"
 end
