@@ -57,3 +57,8 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'brakeman', '~> 5.4'
 gem 'bundler-audit', '~> 0.9.1'
 gem 'lograge', '~> 0.12.0'
+
+gem "awesome_print", "~> 1.9"
+gem "pry-rails", "~> 0.3.9"
+gem "faker", "~> 3.1"
+gem "pry-byebug", "~> 3.10"

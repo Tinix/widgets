@@ -19,8 +19,17 @@ class WidgetsController < ApplicationController
   def edit; end
 
   def show
+    manofacturer = OpenStruct.new(
+      id: rand(100),
+      name: "Sector 7G",
+      address: OpenStruct.new(
+        id: rand(100),
+        country: "AR"
+      )
+    )
     @midget = OpenStruct.new(id: params[:id],
-                             manofacturer_id: rand(100),
+                             manufacturer_id: manufacturer.id,
+														 manufacturer: manufacturer,
                              name: "Widget #{params[:id]}")
   end
 
