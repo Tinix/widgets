@@ -27,7 +27,7 @@ class WidgetsController < ApplicationController
         country: "AR"
       )
     )
-    @midget = OpenStruct.new(id: params[:id],
+    @widget = OpenStruct.new(id: params[:id],
                              manufacturer_id: manufacturer.id,
 														 manufacturer: manufacturer,
                              name: "Widget #{params[:id]}")
