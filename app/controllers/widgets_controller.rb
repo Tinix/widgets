@@ -39,6 +39,7 @@ class WidgetsController < ApplicationController
 					self.id.to_s[-2..-1]
 			end
 		end
+    @widget = WidgetPresenter.new(widget)
   end
 
   def update
