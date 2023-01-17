@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 	end
 
   get 'manufacturer/:id', to: 'manufacturers#show'
-  get "/amazing", to: "widgets#index"
+  root to: "widgets#index"
 end
