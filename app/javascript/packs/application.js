@@ -13,3 +13,5 @@ Turbolinks.start()
 ActiveStorage.start()
 
 import "bootstrap"
+import widget_ratings from "widget_ratings"
+widget_ratings.start(window)
