@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # with_clues.rb
 # Copyright (C) 2023 tinix <tinix@archlinux>
@@ -10,17 +12,15 @@ module TestSupport
     # useful context and diagnostics when a test is
     # unexpectedly failing
     def with_clues(&block)
-      block.()
-    rescue Exception => ex
-      puts "[ with_clues ] Test failed: #{ex.message}"
-      puts "[ with_clues ] HTML {"
+      block.call
+    rescue Exception => e
+      puts "[ with_clues ] Test failed: #{e.message}"
+      puts '[ with_clues ] HTML {'
       puts
       puts page.html
       puts
-      puts "[ with_clues ] } END HTML"
-      raise ex
+      puts '[ with_clues ] } END HTML'
+      raise e
     end
   end
 end
-
-

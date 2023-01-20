@@ -10,11 +10,11 @@ Bundler.require(*Rails.groups)
 
 module WidgetsReload
   class Application < Rails::Application
-    config.application_name = "Wigdets App"
+    config.application_name = 'Wigdets App'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 
-		config.autoload_paths += %W[#{config.root}/app/presenters]
+    config.autoload_paths += %W[#{config.root}/app/presenters]
 
     # Configuration for the application, engines, and railties goes here.
     #
