@@ -33,5 +33,5 @@ end
 
 # JavaScript or that otherwise need a real browser
 class BrowserSystemTestCase < ApplicationSystemTestCase
-  driven_by :root_headless_chrome, screen_size: [ 1400, 1400 ]
+  driven_by :root_headless_chrome, screen_size: [1400, 1400]
 end

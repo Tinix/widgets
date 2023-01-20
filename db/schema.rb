@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_230_111_212_432) do
+ActiveRecord::Schema.define(version: 20_230_120_210_510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -21,11 +21,23 @@ ActiveRecord::Schema.define(version: 20_230_111_212_432) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table 'widgets', force: :cascade do |t|
-    t.string 'name'
-    t.string 'status'
-    t.string 'type'
+  create_table 'manufacturers', force: :cascade do |t|
+    t.text 'name'
+    t.text 'address'
+    t.text 'city'
+    t.text 'post_code'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end
+
+  create_table 'widgets', force: :cascade do |t|
+    t.text 'name'
+    t.text 'status'
+    t.bigint 'manufacturer_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['manufacturer_id'], name: 'index_widgets_on_manufacturer_id'
+  end
+
+  add_foreign_key 'widgets', 'manufacturers'
 end

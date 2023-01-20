@@ -2,10 +2,12 @@
 
 one:
   name: MyText
-  status: MyText
-  manufacturer: one
+  address: MyText
+  city: MyText
+  post_code: MyText
 
 two:
   name: MyText
-  status: MyText
-  manufacturer: two
+  address: MyText
+  city: MyText
+  post_code: MyText
