@@ -1,0 +1,19 @@
+# bin/db-migrate
+#
+#
+#!/bin/sh
+#
+# db-migrate
+# Copyright (C) 2023 tinix <tinix@archlinux>
+#
+# Distributed under terms of the MIT license.
+#
+
+set -e
+
+echo "[ bin/db-migrate ] migrating development schema"
+bin/rails db:migrate
+
+echo "[ bin/db-migrate ] migrating test schema"
+bin/rails db:migrate RAILS_ENV=test
+

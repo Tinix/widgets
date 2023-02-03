@@ -1,0 +1,16 @@
+# bin/db-rollback
+
+#!/bin/sh
+# db-rollback
+# Copyright (C) 2023 tinix <tinix@archlinux>
+#
+# Distributed under terms of the MIT license.
+#
+
+set -e
+echo "[ bin/db-rollback ] rolling back development schema"
+
+bin/rails db:rollback
+
+echo "[ bin/db-rollback ] rolling back test schema"
+bin/rails db:rollback RAILS_ENV=test
