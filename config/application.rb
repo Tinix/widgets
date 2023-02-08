@@ -25,7 +25,7 @@ module WidgetsReload
     # config.eager_load_paths << Rails.root.join("extras")
 
     # We want to be able to use any feature of our database,
-		# and the SQL format makes that possible
-		config.active_record.schema_format = :sql
+    # and the SQL format makes that possible
+    config.active_record.schema_format = :sql
   end
 end

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 #
-# potgres.rb
+# address.rb
 # Copyright (C) 2023 tinix <tinix@archlinux>
 #
 # Distributed under terms of the MIT license.
 #
-
-require 'rails_ext/active_record_datetime_uses_timestamptz'
+class Address < ApplicationRecord
+  # Associations
+  has_many :manufacturers
+end
