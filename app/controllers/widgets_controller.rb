@@ -18,6 +18,15 @@ class WidgetsController < ApplicationController
 
   def edit; end
 
+  def new
+    @widget = Widget.new
+    @manufacturers = Manufacturer.all
+  end
+
+  def create
+    render plain: "Thanks"
+  end
+
   def show
     manofacturer = OpenStruct.new(
       id: rand(100),

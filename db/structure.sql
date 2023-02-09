@@ -73,8 +73,8 @@ ALTER SEQUENCE public.addresses_id_seq OWNED BY public.addresses.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
 );
 
 
@@ -84,8 +84,8 @@ CREATE TABLE public.ar_internal_metadata (
 
 CREATE TABLE public.inventory_reports (
     id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL
 );
 
 
@@ -114,13 +114,34 @@ ALTER SEQUENCE public.inventory_reports_id_seq OWNED BY public.inventory_reports
 
 CREATE TABLE public.manufacturers (
     id bigint NOT NULL,
-    name text,
-    address text,
-    city text,
-    post_code text,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    name text NOT NULL,
+    address_id bigint NOT NULL,
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL,
+    post_code integer,
+    city character varying
 );
+
+
+--
+-- Name: TABLE manufacturers; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.manufacturers IS 'Makers of the widgtes we sell';
+
+
+--
+-- Name: COLUMN manufacturers.name; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.manufacturers.name IS 'Name of this manufacturer';
+
+
+--
+-- Name: COLUMN manufacturers.address_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.manufacturers.address_id IS 'The address of this manufacturer';
 
 
 --
@@ -202,12 +223,50 @@ ALTER SEQUENCE public.widget_statuses_id_seq OWNED BY public.widget_statuses.id;
 
 CREATE TABLE public.widgets (
     id bigint NOT NULL,
-    name text,
-    status text,
+    name text NOT NULL,
+    price_cents integer NOT NULL,
+    widget_status_id bigint NOT NULL,
     manufacturer_id bigint NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp(6) with time zone NOT NULL,
+    updated_at timestamp(6) with time zone NOT NULL,
+    status character varying,
+    CONSTRAINT price_must_be_positive CHECK ((price_cents > 0))
 );
+
+
+--
+-- Name: TABLE widgets; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.widgets IS 'The stuff we sell';
+
+
+--
+-- Name: COLUMN widgets.name; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.widgets.name IS 'Name of this widget';
+
+
+--
+-- Name: COLUMN widgets.price_cents; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.widgets.price_cents IS 'Price of this widget in cents';
+
+
+--
+-- Name: COLUMN widgets.widget_status_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.widgets.widget_status_id IS 'The current status of this widget';
+
+
+--
+-- Name: COLUMN widgets.manufacturer_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.widgets.manufacturer_id IS 'The make of this widget';
 
 
 --
@@ -321,6 +380,20 @@ ALTER TABLE ONLY public.widgets
 
 
 --
+-- Name: index_manufacturers_on_address_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_manufacturers_on_address_id ON public.manufacturers USING btree (address_id);
+
+
+--
+-- Name: index_manufacturers_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_manufacturers_on_name ON public.manufacturers USING btree (name);
+
+
+--
 -- Name: index_widget_statuses_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -342,11 +415,48 @@ CREATE INDEX index_widgets_on_manufacturer_id ON public.widgets USING btree (man
 
 
 --
+-- Name: index_widgets_on_name_and_manufacturer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_widgets_on_name_and_manufacturer_id ON public.widgets USING btree (name, manufacturer_id);
+
+
+--
+-- Name: INDEX index_widgets_on_name_and_manufacturer_id; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON INDEX public.index_widgets_on_name_and_manufacturer_id IS 'No manufacturer con have two widgets with the same name';
+
+
+--
+-- Name: index_widgets_on_widget_status_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_widgets_on_widget_status_id ON public.widgets USING btree (widget_status_id);
+
+
+--
+-- Name: manufacturers fk_rails_413f677ef3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.manufacturers
+    ADD CONSTRAINT fk_rails_413f677ef3 FOREIGN KEY (address_id) REFERENCES public.addresses(id);
+
+
+--
 -- Name: widgets fk_rails_c844384a2b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.widgets
     ADD CONSTRAINT fk_rails_c844384a2b FOREIGN KEY (manufacturer_id) REFERENCES public.manufacturers(id);
+
+
+--
+-- Name: widgets fk_rails_eb3d987080; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.widgets
+    ADD CONSTRAINT fk_rails_eb3d987080 FOREIGN KEY (widget_status_id) REFERENCES public.widget_statuses(id);
 
 
 --
@@ -358,7 +468,8 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20210101000000'),
 ('20230111212432'),
-('20230120205054'),
-('20230120210510');
+('20230209141554'),
+('20230209142108'),
+('20230209142155');
 
 
