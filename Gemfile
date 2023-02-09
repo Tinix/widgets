@@ -62,3 +62,5 @@ gem 'awesome_print', '~> 1.9'
 gem 'faker', '~> 3.1'
 gem 'pry-byebug', '~> 3.10'
 gem 'pry-rails', '~> 0.3.9'
+
+gem 'factory_bot_rails', '~> 6.2'
